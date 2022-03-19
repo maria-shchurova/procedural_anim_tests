@@ -14,7 +14,10 @@ public class Step : MonoBehaviour
     public float speed = 10;
 
     bool needStep = false;
-   // bool needCrunch = false;
+
+    public bool canStep { get; set; }
+
+    // bool needCrunch = false;
     void MoveFoot(Vector3 target)
     {
         float step = speed * Time.deltaTime; // calculate distance to move
@@ -24,7 +27,10 @@ public class Step : MonoBehaviour
             foot.position = Vector3.MoveTowards(foot.position, stepTarget.position, step);
 
         if(Vector3.Distance(foot.position, stepTarget.position) < MinDistance_targetToFoot)
+        {
             needStep = false;
+            Messenger.Broadcast<string>("Step made", gameObject.name);
+        }
     }
 
     //void CrunchBody()
@@ -51,7 +57,7 @@ public class Step : MonoBehaviour
 
     private void Update()
     {
-        if (needStep)
+        if (needStep && canStep)
             MoveFoot(stepTarget.position);
 
         //if (needCrunch)
