@@ -20,7 +20,6 @@ public class GroundCheck : MonoBehaviour
             transform.position = footPosition;
         }
 
-        Debug.DrawRay(transform.position, hit1.point, Color.red);
     }
 
     private void Update()
